@@ -1,9 +1,10 @@
 #include "BallPickUp.h"
 #include "../RobotMap.h"
 #include "WPILib.h"
+#include <ctre/Phoenix.h>
 
 BallPickUp::BallPickUp() : Subsystem("BallPickUpSubsystem") {
-	Ball_Pick_Up_Motor = new Talon(RobotMap::Ball_Pick_Up_Motor);
+	Ball_Pick_Up_Motor = new WPI_TalonSRX(RobotMap::Ball_Pick_Up_Motor);
 }
 
 void BallPickUp::InitDefaultCommand() {

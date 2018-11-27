@@ -5,9 +5,8 @@
 
 class CubeConveyorCMD : public CommandBase {
 private:
-	double speed;
 public:
-	CubeConveyorCMD(double speed);
+	CubeConveyorCMD();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -19,15 +19,12 @@ void DriveCMD::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DriveCMD::Execute()
 {
-	Joystick* pDriveStick = CommandBase::oi->GetDriveStick();
-		CommandBase::driveSubsystem->Drive(
-				pDriveStick->GetRawAxis(1),
-				pDriveStick->GetRawAxis(4));
-		if(pDriveStick->GetRawAxis(1))
+		CommandBase::driveSubsystem->Drive(CommandBase::oi->GetAxis(0, Axis::RightUpDown), CommandBase::oi->GetAxis(0, Axis::LeftLeftRight));
+		if(CommandBase::oi->GetButton(0, Buttons::A))
 		{
 			CommandBase::driveSubsystem->Shift(DoubleSolenoid::Value::kForward);
 		}
-		if(pDriveStick->GetRawButton(2))
+		if(CommandBase::oi->GetButton(0, Buttons::B))
 		{
 			CommandBase::driveSubsystem->Shift(DoubleSolenoid::Value::kReverse);
 		}

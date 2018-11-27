@@ -4,16 +4,14 @@
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <TimedRobot.h>
-#include "Commands/ExampleCommand.h"
-#include "Commands/MyAutoCommand.h"
 #include "CommandBase.h"
 
 class Robot : public frc::TimedRobot {
 public:
 	Compressor *c = new Compressor(0);
 	void RobotInit() override {
-		m_chooser.AddDefault("Default Auto", &m_defaultAuto);
-		m_chooser.AddObject("My Auto", &m_myAuto);
+		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
+		//m_chooser.AddObject("My Auto", &m_myAuto);
 		frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 	}
 
@@ -48,13 +46,12 @@ public:
 		std::string autoSelected = frc::SmartDashboard::GetString(
 				"Auto Selector", "Default");
 		if (autoSelected == "My Auto") {
-			m_autonomousCommand = &m_myAuto;
+			//m_autonomousCommand = &m_myAuto;
 		} else {
-			m_autonomousCommand = &m_defaultAuto;
+			//m_autonomousCommand = &m_defaultAuto;
 		}
 
 		m_autonomousCommand = m_chooser.GetSelected();
-
 		if (m_autonomousCommand != nullptr) {
 			m_autonomousCommand->Start();
 		}
@@ -87,8 +84,8 @@ private:
 	// Have it null by default so that if testing teleop it
 	// doesn't have undefined behavior and potentially crash.
 	frc::Command* m_autonomousCommand = nullptr;
-	ExampleCommand m_defaultAuto;
-	MyAutoCommand m_myAuto;
+	//ExampleCommand m_defaultAuto;
+	//MyAutoCommand m_myAuto;
 	frc::SendableChooser<frc::Command*> m_chooser;
 };
 

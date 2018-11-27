@@ -5,9 +5,8 @@
 
 class CubePickUpCMD : public CommandBase {
 private:
-	double speed;
 public:
-	CubePickUpCMD(double speed);
+	CubePickUpCMD();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -7,14 +7,58 @@
 #include <WPILib.h>
 #pragma once
 
+enum Axis
+{
+	LeftUpDown,
+	RightUpDown,
+	LeftLeftRight,
+	RightLeftRight,
+	LeftTrigger,
+	RightTrigger
+};
+
+enum Buttons
+{
+	A,
+	B,
+	X,
+	Y,
+	Back,
+	Start,
+	LBumper,
+	RBumper,
+	LJoyDown,
+	RJoyDown
+};
+
 class OI {
 public:
 	Joystick* pDriveStick;
 	Joystick* pOperatorStick;
-	JoystickButton* AButton;
-	JoystickButton* BButton;
-	JoystickButton* XButton;
-	JoystickButton* YButton;
+	JoystickButton* DriverAButton;
+	JoystickButton* DriverBButton;
+	JoystickButton* DriverXButton;
+	JoystickButton* DriverYButton;
+	JoystickButton* DriverBackButton;
+	JoystickButton* DriverStartButton;
+	JoystickButton* DriverLBumperButton;
+	JoystickButton* DriverRBumperButton;
+	JoystickButton* DriverLJoyDownButton;
+	JoystickButton* DriverRJoyDownButton;
+
+	JoystickButton* OperatorAButton;
+	JoystickButton* OperatorBButton;
+	JoystickButton* OperatorXButton;
+	JoystickButton* OperatorYButton;
+	JoystickButton* OperatorBackButton;
+	JoystickButton* OperatorStartButton;
+	JoystickButton* OperatorLBumperButton;
+	JoystickButton* OperatorRBumperButton;
+	JoystickButton* OperatorLJoyDownButton;
+	JoystickButton* OperatorRJoyDownButton;
+
 	Joystick* GetDriveStick();
+	bool GetAxis(int controller, Axis axis);
+	bool GetButton(int controller, Buttons button);
 	OI();
 };

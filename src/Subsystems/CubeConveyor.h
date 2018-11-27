@@ -3,17 +3,23 @@
 
 #include <Commands/Subsystem.h>
 #include <WPILib.h>
+#include <ctre/Phoenix.h>
 
 class CubeConveyor : public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	Talon* Cube_Conveyor_Left;
-	Talon* Cube_Conveyor_Right;
+	WPI_TalonSRX* Cube_Conveyor_Front;
+	WPI_TalonSRX* Cube_Conveyor_Back;
+	DigitalInput* Front_Switch;
+	DigitalInput* Back_Switch;
 
 public:
 	CubeConveyor();
-	void SetSpeed(double speed);
+	void SetFront(double speed);
+	void SetBack(double speed);
+	bool GetFrontSwitch();
+	bool GetBackSwitch();
 	void InitDefaultCommand();
 };
 

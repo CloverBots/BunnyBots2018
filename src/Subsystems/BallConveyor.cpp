@@ -3,7 +3,7 @@
 #include "WPILib.h"
 
 BallConveyor::BallConveyor() : Subsystem("BallConveyorSubsystem") {
-	Ball_Conveyor_Motor = new Talon(RobotMap::Ball_Conveyor_Motor);
+	Ball_Conveyor_Motor = new WPI_TalonSRX(RobotMap::Ball_Conveyor_Motor);
 }
 
 void BallConveyor::InitDefaultCommand() {

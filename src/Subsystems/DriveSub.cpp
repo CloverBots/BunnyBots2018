@@ -2,20 +2,21 @@
 #include "../RobotMap.h"
 #include <WPILib.h>
 #include "DriveSub.h"
+#include "Commands/DriveCMD.h"
 
 DriveSub::DriveSub() : Subsystem("driveSubsystem") {
-	Front_Left_Motor = new Talon(RobotMap::Front_Left_Motor);
-	Front_Right_Motor = new Talon(RobotMap::Front_Right_Motor);
-	Middle_Left_Motor = new Talon(RobotMap::Middle_Left_Motor);
-	Middle_Right_Motor = new Talon(RobotMap::Middle_Right_Motor);
-	Back_Left_Motor = new Talon(RobotMap::Back_Left_Motor);
-	Back_Right_Motor = new Talon(RobotMap::Back_Right_Motor);
+	Front_Left_Motor = new WPI_TalonSRX(RobotMap::Front_Left_Motor);
+	Front_Right_Motor = new WPI_TalonSRX(RobotMap::Front_Right_Motor);
+	Middle_Left_Motor = new WPI_TalonSRX(RobotMap::Middle_Left_Motor);
+	Middle_Right_Motor = new WPI_TalonSRX(RobotMap::Middle_Right_Motor);
+	Back_Left_Motor = new WPI_TalonSRX(RobotMap::Back_Left_Motor);
+	Back_Right_Motor = new WPI_TalonSRX(RobotMap::Back_Right_Motor);
 	Gear_Box = new DoubleSolenoid(1, 2);
 }
 
 void DriveSub::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
-	// SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new DriveCMD());
 }
 
 void DriveSub::Drive(double speed, double turn)

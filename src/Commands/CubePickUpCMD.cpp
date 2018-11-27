@@ -1,6 +1,6 @@
 #include "CubePickUpCMD.h"
 
-CubePickUpCMD::CubePickUpCMD(double speed) : speed(speed){
+CubePickUpCMD::CubePickUpCMD(){
 	Requires(CommandBase::CubePickUpSubsystem.get());
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -13,12 +13,27 @@ void CubePickUpCMD::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void CubePickUpCMD::Execute() {
-	CommandBase::CubePickUpSubsystem->SetSpeed(speed);
+	if(CommandBase::oi->GetButton(1, Buttons::A))
+	{
+		CommandBase::CubePickUpSubsystem->SetSpeed(1);
+	}
+	else
+	{
+		CommandBase::CubePickUpSubsystem->SetSpeed(0);
+	}
+	if(CommandBase::oi->GetButton(1, Buttons::B))
+	{
+		CommandBase::CubePickUpSubsystem->Grab(DoubleSolenoid::Value::kForward);
+	}
+	else
+	{
+		CommandBase::CubePickUpSubsystem->Grab(DoubleSolenoid::Value::kForward);
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool CubePickUpCMD::IsFinished() {
-	return true;
+	return false;
 }
 
 // Called once after isFinished returns true
