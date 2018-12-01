@@ -4,7 +4,8 @@
 #include <Commands/Subsystem.h>
 #include <ctre/Phoenix.h>
 
-class BallConveyor : public Subsystem {
+class BallConveyor : public Subsystem
+{
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities

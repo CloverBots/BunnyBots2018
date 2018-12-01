@@ -6,9 +6,8 @@
 
 class BallPickUpCMD : public CommandBase {
 private:
-	double speed;
 public:
-	BallPickUpCMD(double speed);
+	BallPickUpCMD();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

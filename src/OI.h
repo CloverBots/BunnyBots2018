@@ -33,6 +33,17 @@ enum Buttons
 
 class OI {
 public:
+
+	DriverStation::Alliance team;
+
+	int total_ball_count = 0;
+	int in_cube_ball_count = 0;
+
+	int start_time = 0;
+	int end_time = 0;
+
+	int ball_threshold = 6;
+
 	Joystick* pDriveStick;
 	Joystick* pOperatorStick;
 	JoystickButton* DriverAButton;
@@ -58,7 +69,10 @@ public:
 	JoystickButton* OperatorRJoyDownButton;
 
 	Joystick* GetDriveStick();
-	bool GetAxis(int controller, Axis axis);
+	double GetAxis(int controller, Axis axis);
 	bool GetButton(int controller, Buttons button);
+	int GetDPad(int controller);
+	void SetTeam(DriverStation::Alliance);
+	DriverStation::Alliance GetTeam();
 	OI();
 };

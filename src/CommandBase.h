@@ -12,6 +12,7 @@
 #include "Subsystems/BallPickUp.h"
 #include "Subsystems/CubeConveyor.h"
 #include "Subsystems/CubePickUp.h"
+#include "Subsystems/BallSort.h"
 
 
 /**
@@ -25,12 +26,13 @@ public:
 	CommandBase(const std::string& name);
 	CommandBase() = default;
 	// Create a single static instance of all of your subsystems
+	static std::unique_ptr<OI> oi;
 	static std::unique_ptr<DriveSub> driveSubsystem;
 	static std::unique_ptr<BallConveyor> BallConveyorSubsystem;
 	static std::unique_ptr<BallPickUp> BallPickUpSubsystem;
 	static std::unique_ptr<CubeConveyor> CubeConveyorSubsystem;
 	static std::unique_ptr<CubePickUp> CubePickUpSubsystem;
-	static std::unique_ptr<OI> oi;
+	static std::unique_ptr<BallSort> BallSortSubsystem;
 };
 
 #endif  // COMMAND_BASE_H

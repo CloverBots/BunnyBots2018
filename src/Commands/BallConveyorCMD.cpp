@@ -1,6 +1,6 @@
 #include "BallConveyorCMD.h"
 
-BallConveyorCMD::BallConveyorCMD(double speed) : speed(speed){
+BallConveyorCMD::BallConveyorCMD(){
 	Requires(CommandBase::BallConveyorSubsystem.get());
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -13,12 +13,27 @@ void BallConveyorCMD::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void BallConveyorCMD::Execute() {
-	CommandBase::BallConveyorSubsystem->SetSpeed(speed);
+	if(CommandBase::oi->GetButton(1, Buttons::B))
+	{
+		if(start_time == 0)
+		{
+			start_time = clock();
+		}
+	}
+	end_time = clock();
+	if(!(CommandBase::oi->end_time - CommandBase::oi->start_time)/CLOCKS_PER_SEC >= 5)
+	{
+		CommandBase::BallConveyorSubsystem->SetSpeed(1);
+	}
+	else
+	{
+		CommandBase::BallConveyorSubsystem->SetSpeed(0);
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool BallConveyorCMD::IsFinished() {
-	return true;
+	return false;
 }
 
 // Called once after isFinished returns true

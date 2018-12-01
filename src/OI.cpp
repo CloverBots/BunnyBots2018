@@ -12,7 +12,11 @@
 #include <Commands/CubeConveyorCMD.h>
 #include <Commands/CubePickUpCMD.h>
 
-OI::OI() {
+OI::OI()
+{
+	team = DriverStation::Alliance::kInvalid;
+	start_time = 0;
+	end_time = 0;
 	pDriveStick = new Joystick(0);
 	pOperatorStick = new Joystick(1);
 	DriverAButton = new JoystickButton(pOperatorStick, 1);
@@ -25,7 +29,6 @@ OI::OI() {
 	DriverRBumperButton = new JoystickButton(pOperatorStick, 6);
 	DriverLJoyDownButton = new JoystickButton(pOperatorStick, 9);
 	DriverRJoyDownButton = new JoystickButton(pOperatorStick, 10);
-
 	OperatorAButton = new JoystickButton(pOperatorStick, 1);
 	OperatorBButton = new JoystickButton(pOperatorStick, 2);
 	OperatorXButton = new JoystickButton(pOperatorStick, 3);
@@ -40,12 +43,22 @@ OI::OI() {
 	// Process operator interface input here.
 }
 
+void OI::SetTeam(DriverStation::Alliance team)
+{
+	this->team = team;
+}
+
+DriverStation::Alliance OI::GetTeam()
+{
+	return team;
+}
+
 Joystick* OI::GetDriveStick()
 {
 	return pDriveStick;
 }
 
-bool OI::GetAxis(int controller, Axis axis)
+double OI::GetAxis(int controller, Axis axis)
 {
 	if(controller == 0)
 	{
@@ -182,5 +195,17 @@ bool OI::GetButton(int controller, Buttons button)
 				return false;
 				break;
 		}
+	}
+}
+
+int OI::GetDPad(int controller)
+{
+	if(controller == 0)
+	{
+		return pDriveStick->GetPOV(0);
+	}
+	else
+	{
+		return pOperatorStick->GetPOV(0);
 	}
 }

@@ -1,6 +1,6 @@
 #include "BallPickUpCMD.h"
 
-BallPickUpCMD::BallPickUpCMD(double speed) : speed(speed){
+BallPickUpCMD::BallPickUpCMD(){
 	Requires(CommandBase::BallPickUpSubsystem.get());
 
 	// Use Requires() here to declare subsystem dependencies
@@ -14,8 +14,12 @@ void BallPickUpCMD::Initialize() {
 }
 
 // Called repeatedly when this Command is scheduled to run
-void BallPickUpCMD::Execute() {
-	CommandBase::BallPickUpSubsystem->SetSpeed(speed);
+void BallPickUpCMD::Execute()
+{
+	if(CommandBase::oi->GetButton(1, Buttons::B))
+	{
+		CommandBase::BallPickUpSubsystem->SetSpeed(1);
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

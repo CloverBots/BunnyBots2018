@@ -6,9 +6,10 @@
 
 class BallConveyorCMD : public CommandBase {
 private:
-	double speed;
+	int start_time;
+	int end_time;
 public:
-	BallConveyorCMD(double speed);
+	BallConveyorCMD();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

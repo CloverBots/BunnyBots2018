@@ -2,6 +2,7 @@
 
 CubePickUpCMD::CubePickUpCMD(){
 	Requires(CommandBase::CubePickUpSubsystem.get());
+	Requires(CommandBase::BallPickUpSubsystem.get());
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 }
@@ -16,12 +17,14 @@ void CubePickUpCMD::Execute() {
 	if(CommandBase::oi->GetButton(1, Buttons::A))
 	{
 		CommandBase::CubePickUpSubsystem->SetSpeed(1);
+		CommandBase::BallPickUpSubsystem->SetSpeed(1);
 	}
 	else
 	{
 		CommandBase::CubePickUpSubsystem->SetSpeed(0);
+		CommandBase::BallPickUpSubsystem->SetSpeed(0);
 	}
-	if(CommandBase::oi->GetButton(1, Buttons::B))
+	if(CommandBase::oi->GetButton(1, Buttons::X))
 	{
 		CommandBase::CubePickUpSubsystem->Grab(DoubleSolenoid::Value::kForward);
 	}

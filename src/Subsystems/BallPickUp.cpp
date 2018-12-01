@@ -3,11 +3,13 @@
 #include "WPILib.h"
 #include <ctre/Phoenix.h>
 
-BallPickUp::BallPickUp() : Subsystem("BallPickUpSubsystem") {
+BallPickUp::BallPickUp() : Subsystem("BallPickUpSubsystem")
+{
 	Ball_Pick_Up_Motor = new WPI_TalonSRX(RobotMap::Ball_Pick_Up_Motor);
 }
 
-void BallPickUp::InitDefaultCommand() {
+void BallPickUp::InitDefaultCommand()
+{
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
 }

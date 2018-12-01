@@ -22,7 +22,7 @@ void CubePickUp::InitDefaultCommand()
 // here. Call these from Commands.
 void CubePickUp::SetSpeed(double speed)
 {
-	Cube_Pick_Up_Left->Set(speed);
+	Cube_Pick_Up_Left->Set(-speed);
 	Cube_Pick_Up_Right->Set(speed);
 	if(speed != 0)
 	{

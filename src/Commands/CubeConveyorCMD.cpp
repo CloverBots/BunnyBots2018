@@ -16,23 +16,41 @@ void CubeConveyorCMD::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void CubeConveyorCMD::Execute()
 {
-	if(CommandBase::oi->GetButton(1, Buttons::A))
+	CommandBase::CubeConveyorSubsystem->SetServo(CommandBase::oi->GetAxis(1, Axis::RightTrigger) * 360);
+	switch(CommandBase::oi->GetDPad(1))
 	{
-		if(!CommandBase::CubeConveyorSubsystem->GetFrontSwitch())
+	case(0):
+		CommandBase::oi->ball_threshold = 8;
+		break;
+	case(90):
+		CommandBase::oi->ball_threshold = 6;
+		break;
+	case(270):
+		CommandBase::oi->ball_threshold = 4;
+		break;
+	case(180):
+		CommandBase::oi->ball_threshold = 2;
+		break;
+	}
+	if(CommandBase::CubeConveyorSubsystem->GetFrontSwitch())
+	{
+		if(CommandBase::oi->in_cube_ball_count < CommandBase::oi->ball_threshold)
 		{
-			CommandBase::CubeConveyorSubsystem->SetFront(1);
+			CommandBase::CubeConveyorSubsystem->SetEnabled(true);
+			CommandBase::CubeConveyorSubsystem->SetSetPoint(CommandBase::CubeConveyorSubsystem->GetSetPoint() + 5461);
+		}
+		else
+		{
+			CommandBase::CubeConveyorSubsystem->SetEnabled(false);
+			if(!CommandBase::CubeConveyorSubsystem->GetBackSwitch())
+			{
+				CommandBase::CubeConveyorSubsystem->SetFront(1);
+			}
 		}
 	}
-	if(CommandBase::CubeConveyorSubsystem->GetFrontSwitch() && CommandBase::CubeConveyorSubsystem->GetBackSwitch())
+	if(CommandBase::oi->GetButton(1, Buttons::Y) && CommandBase::CubeConveyorSubsystem->GetBackSwitch())
 	{
-		if(CommandBase::CubeConveyorSubsystem->GetFrontSwitch())
-		{
-			CommandBase::CubeConveyorSubsystem->SetFront(1);
-		}
-		if(!CommandBase::CubeConveyorSubsystem->GetBackSwitch())
-		{
-			CommandBase::CubeConveyorSubsystem->SetBack(1);
-		}
+		CommandBase::CubeConveyorSubsystem->SetBack(1);
 	}
 }
 

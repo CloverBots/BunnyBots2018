@@ -39,9 +39,12 @@ public:
 		Back_Right_Motor = 5,
 		Cube_Pick_Up_Left = 6,
 		Cube_Pick_Up_Right = 7,
-		Cube_Conveyor_Left = 8,
-		Cube_Conveyor_Right = 9,
-		Ball_Pick_Up_Motor = 10,
-		Ball_Conveyor_Motor = 11;
+		Cube_Conveyor_Left_1 = 8,
+		Cube_Conveyor_Right_1 = 9,
+		Cube_Conveyor_Left_2 = 10,
+		Cube_Conveyor_Right_2 = 11,
+		Ball_Pick_Up_Motor = 12,
+		Ball_Conveyor_Motor = 13,
+		Ball_Hopper_Motor = 14;
 };
 #endif // ROBOTMAP_H

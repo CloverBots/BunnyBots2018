@@ -8,6 +8,7 @@
 
 class Robot : public frc::TimedRobot {
 public:
+	DriverStation& ds = DriverStation::GetInstance();
 	Compressor *c = new Compressor(0);
 	void RobotInit() override {
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
@@ -22,7 +23,7 @@ public:
 	 * when
 	 * the robot is disabled.
 	 */
-	void DisabledInit() override {}
+	void DisabledInit() override {c->Stop();}
 
 	void DisabledPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
@@ -43,6 +44,8 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
+		c->Start();
+		CommandBase::oi->SetTeam(ds.GetAlliance());
 		std::string autoSelected = frc::SmartDashboard::GetString(
 				"Auto Selector", "Default");
 		if (autoSelected == "My Auto") {
@@ -62,6 +65,8 @@ public:
 	}
 
 	void TeleopInit() override {
+		c->Start();
+		CommandBase::oi->SetTeam(ds.GetAlliance());
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
