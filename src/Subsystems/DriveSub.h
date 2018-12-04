@@ -3,8 +3,8 @@
 #include <WPILib.h>
 #include <Commands/Subsystem.h>
 #include <ctre/Phoenix.h>
+#include <PIDValOutput.h>
 #include "../Enc2PIDSource.h"
-#include "../PID6Output.h"
 
 class DriveSub : public Subsystem
 {
@@ -33,7 +33,9 @@ private:
 	WPI_TalonSRX* Back_Left_Motor;
 	WPI_TalonSRX* Back_Right_Motor;
 	DoubleSolenoid* Gear_Box;
-	Enc2PIDSource* Source;
+	Enc2PIDSource* DriveSource;
+	PIDValOutput* DriveOutput;
+	PIDValOutput* RotateOutput;
 
 	ADXRS450_Gyro* m_gyro;
 	PIDController* DrivePID;
@@ -42,10 +44,13 @@ public:
 	DriveSub();
 	void Drive(double speed, double turn);
 	void Shift(DoubleSolenoid::Value value);
+	double GetDriveOutput();
+	double GetRotateOutput();
 	void ResetGyro();
 	void ResetDrive();
 	double GetDistance();
 	double GetGyroAngle();
+	void PIDDrive();
 	void SetDrivePIDEnabled(bool enabled);
 	void SetDriveRotatePIDEnabled(bool enabled);
 	void SetDriveRotate(bool enabled, double setpoint);
@@ -53,7 +58,6 @@ public:
 	bool OnTarget();
 	void UpdateFromSmartDashboard();
 	void DisableAllPID();
-	void AutoDrivePID();
 	void Calibrate();
 	void InitDefaultCommand();
 };

@@ -13,8 +13,8 @@ CubeConveyor::CubeConveyor() : Subsystem("CubeConveyorSubsystem")
 	Ball_Hopper_Motor = new WPI_TalonSRX(RobotMap::Ball_Hopper_Motor);
 	Ball_Hopper_Motor->ConfigSelectedFeedbackSensor(phoenix::motorcontrol::FeedbackDevice::QuadEncoder, 0, 0);
 	Ball_Hopper_Motor->GetSensorCollection().SetQuadraturePosition(0, 10);
-	source = new EncPIDSource(Ball_Hopper_Motor);
-	Ball_Hopper_Controller = new PIDController(P, I, D, source, Ball_Hopper_Motor);
+	Ball_Hopper_Source = new EncPIDSource(Ball_Hopper_Motor);
+	Ball_Hopper_Controller = new PIDController(P, I, D, Ball_Hopper_Source, Ball_Hopper_Motor);
 	Ball_Hopper_Servo = new Servo(1);
 	Front_Switch = new DigitalInput(0);
 	Back_Switch = new DigitalInput(1);

@@ -6,8 +6,8 @@
 
 class BallConveyorCMD : public CommandBase {
 private:
-	int start_time;
-	int end_time;
+	int start_time = 0;
+	int end_time = 0;
 public:
 	BallConveyorCMD();
 	void Initialize();

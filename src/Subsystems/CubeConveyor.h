@@ -20,11 +20,10 @@ private:
 	WPI_TalonSRX* Cube_Conveyor_Back_2;
 
 	WPI_TalonSRX* Ball_Hopper_Motor;
-	EncPIDSource* source;
+	EncPIDSource* Ball_Hopper_Source;
 	PIDController* Ball_Hopper_Controller;
 
 	Servo* Ball_Hopper_Servo;
-
 
 	DigitalInput* Front_Switch;
 	DigitalInput* Back_Switch;

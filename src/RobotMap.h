@@ -31,20 +31,20 @@ class RobotMap
 {
 public:
 	const static unsigned int
-		Front_Left_Motor = 0,
-		Front_Right_Motor = 1,
-		Middle_Left_Motor = 2,
-		Middle_Right_Motor = 3,
-		Back_Left_Motor = 4,
-		Back_Right_Motor = 5,
-		Cube_Pick_Up_Left = 6,
-		Cube_Pick_Up_Right = 7,
-		Cube_Conveyor_Left_1 = 8,
-		Cube_Conveyor_Right_1 = 9,
+		Front_Left_Motor = 5,
+		Front_Right_Motor = 8,
+		Middle_Left_Motor = 6,
+		Middle_Right_Motor = 9,
+		Back_Left_Motor = 7,
+		Back_Right_Motor = 11,
+		Cube_Pick_Up_Left = 1,
+		Cube_Pick_Up_Right = 2,
+		Cube_Conveyor_Left_1 = 3,
+		Cube_Conveyor_Right_1 = 4,
 		Cube_Conveyor_Left_2 = 10,
-		Cube_Conveyor_Right_2 = 11,
-		Ball_Pick_Up_Motor = 12,
-		Ball_Conveyor_Motor = 13,
-		Ball_Hopper_Motor = 14;
+		Cube_Conveyor_Right_2 = 12,
+		Ball_Pick_Up_Motor = 13,
+		Ball_Conveyor_Motor = 14,
+		Ball_Hopper_Motor = 15;
 };
 #endif // ROBOTMAP_H

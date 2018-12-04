@@ -26,7 +26,11 @@ DriveSub::DriveSub() : Subsystem("DriveSub")
 	Back_Right_Motor->SetInverted(true);
 	Gear_Box = new DoubleSolenoid(1, 2);
 
-	Source = new Enc2PIDSource(Middle_Right_Motor, Middle_Left_Motor);
+	DriveSource = new Enc2PIDSource(Middle_Right_Motor, Middle_Left_Motor);
+	DriveOutput = new PIDValOutput();
+	RotateOutput = new PIDValOutput();
+	DrivePID = new PIDController(m_DriveP, m_DriveI, m_DriveD, DriveSource, DriveOutput);
+	DriveRotatePID = new PIDController(m_RotateP, m_RotateI, m_RotateD, m_gyro, RotateOutput);
 }
 
 void DriveSub::InitDefaultCommand()
@@ -50,6 +54,16 @@ void DriveSub::Shift(DoubleSolenoid::Value value)
 	Gear_Box->Set(value);
 }
 
+double DriveSub::GetDriveOutput()
+{
+	return DriveOutput->GetValue();
+}
+
+double DriveSub::GetRotateOutput()
+{
+	return RotateOutput->GetValue();
+}
+
 void DriveSub::ResetGyro()
 {
 	m_gyro->Reset();
@@ -57,12 +71,22 @@ void DriveSub::ResetGyro()
 
 void DriveSub::ResetDrive()
 {
-	Source->Reset();
+	DriveSource->Reset();
 }
 
 double DriveSub::GetGyroAngle()
 {
 	return m_gyro->GetAngle();
+}
+
+void DriveSub::PIDDrive()
+{
+	Front_Left_Motor->Set(GetDriveOutput() - GetRotateOutput());
+	Front_Right_Motor->Set(GetDriveOutput() + GetRotateOutput());
+	Middle_Left_Motor->Set(GetDriveOutput() - GetRotateOutput());
+	Middle_Right_Motor->Set(GetDriveOutput() + GetRotateOutput());
+	Back_Left_Motor->Set(GetDriveOutput() - GetRotateOutput());
+	Back_Right_Motor->Set(GetDriveOutput() + GetRotateOutput());
 }
 
 void DriveSub::SetDrivePIDEnabled(bool enabled)

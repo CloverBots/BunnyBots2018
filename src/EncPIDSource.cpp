@@ -1,10 +1,3 @@
-/*
- * EncPIDSource.cpp
- *
- *  Created on: Feb 16, 2018
- *      Author: conso
- */
-
 #include "EncPIDSource.h"
 #include <ctre/Phoenix.h>
 #include <iostream>

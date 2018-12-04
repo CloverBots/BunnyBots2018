@@ -5,14 +5,14 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <TimedRobot.h>
 #include "CommandBase.h"
+#include "Commands/DriveDistance.h"
 
 class Robot : public frc::TimedRobot {
 public:
 	DriverStation& ds = DriverStation::GetInstance();
 	Compressor *c = new Compressor(0);
 	void RobotInit() override {
-		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
-		//m_chooser.AddObject("My Auto", &m_myAuto);
+		m_chooser.AddDefault("DriveForward", "DriveForward");
 		frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 	}
 
@@ -29,32 +29,17 @@ public:
 		frc::Scheduler::GetInstance()->Run();
 	}
 
-	/**
-	 * This autonomous (along with the chooser code above) shows how to
-	 * select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * GetString code to get the auto name from the text box below the Gyro.
-	 *
-	 * You can add additional auto modes by adding additional commands to
-	 * the
-	 * chooser code above (like the commented example) or additional
-	 * comparisons
-	 * to the if-else structure below with additional strings & commands.
-	 */
 	void AutonomousInit() override {
 		c->Start();
 		CommandBase::oi->SetTeam(ds.GetAlliance());
 		std::string autoSelected = frc::SmartDashboard::GetString(
 				"Auto Selector", "Default");
-		if (autoSelected == "My Auto") {
-			//m_autonomousCommand = &m_myAuto;
+		if (autoSelected == "DriveForward") {
+			m_autonomousCommand = new DriveDistance(100);
 		} else {
-			//m_autonomousCommand = &m_defaultAuto;
+			m_autonomousCommand = new DriveDistance(100);
 		}
 
-		m_autonomousCommand = m_chooser.GetSelected();
 		if (m_autonomousCommand != nullptr) {
 			m_autonomousCommand->Start();
 		}
@@ -89,9 +74,7 @@ private:
 	// Have it null by default so that if testing teleop it
 	// doesn't have undefined behavior and potentially crash.
 	frc::Command* m_autonomousCommand = nullptr;
-	//ExampleCommand m_defaultAuto;
-	//MyAutoCommand m_myAuto;
-	frc::SendableChooser<frc::Command*> m_chooser;
+	frc::SendableChooser<std::string> m_chooser;
 };
 
 START_ROBOT_CLASS(Robot)
