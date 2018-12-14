@@ -1,9 +1,9 @@
-#ifndef CubePickUpCMD_H
-#define CubePickUpCMD_H
+#pragma once
 
 #include "../CommandBase.h"
 
-class CubePickUpCMD : public CommandBase {
+class CubePickUpCMD : public CommandBase
+{
 private:
 public:
 	CubePickUpCMD();
@@ -13,5 +13,3 @@ public:
 	void End();
 	void Interrupted();
 };
-
-#endif  // CubePickUpCMD_H

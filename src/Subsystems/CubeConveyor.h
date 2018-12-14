@@ -1,5 +1,4 @@
-#ifndef CubeConveyor_H
-#define CubeConveyor_H
+#pragma once
 
 #include <Commands/Subsystem.h>
 #include <WPILib.h>
@@ -9,31 +8,33 @@
 class CubeConveyor : public Subsystem
 {
 private:
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
+
 	const double P = 0;
 	const double I = 0;
 	const double D = 0;
+
 	WPI_TalonSRX* Cube_Conveyor_Front_1;
 	WPI_TalonSRX* Cube_Conveyor_Back_1;
 	WPI_TalonSRX* Cube_Conveyor_Front_2;
 	WPI_TalonSRX* Cube_Conveyor_Back_2;
 
-	WPI_TalonSRX* Ball_Hopper_Motor;
+	WPI_VictorSPX* Ball_Hopper_Motor;
 	EncPIDSource* Ball_Hopper_Source;
 	PIDController* Ball_Hopper_Controller;
 
-	Servo* Ball_Hopper_Servo;
+	DoubleSolenoid* Ball_Hopper_Solenoid;
 
 	DigitalInput* Front_Switch;
 	DigitalInput* Back_Switch;
+	DigitalInput* HopperSwitch;
 
 public:
 	CubeConveyor();
-	void SetServo(double angle);
+	void SetSoldenoid(DoubleSolenoid::Value value);
 	void SetHopper(double speed);
 	void SetEnabled(bool enabled);
 	void SetSetPoint(double setpoint);
+	bool GetSwitch();
 	double GetSetPoint();
 	bool OnTarget();
 	void SetFront(double speed);
@@ -42,5 +43,3 @@ public:
 	bool GetBackSwitch();
 	void InitDefaultCommand();
 };
-
-#endif  // CubeConveyor_H

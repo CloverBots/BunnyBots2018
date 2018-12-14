@@ -1,6 +1,4 @@
-#ifndef SRC_ENCPIDSOURCE_H_
-#define SRC_ENCPIDSOURCE_H_
-
+#pragma once
 #include "WPILib.h"
 #include <ctre/Phoenix.h>
 
@@ -20,5 +18,3 @@ public:
 	virtual ~Enc2PIDSource();
 	virtual double PIDGet();
 };
-
-#endif /* SRC_ENCPIDSOURCE_H_ */

@@ -9,6 +9,7 @@
 #include "../RobotMap.h"
 #include "Commands/BallSortCMD.h"
 #include <WPILib.h>
+#include <iostream>
 
 BallSort::BallSort() : Subsystem("ExampleSubsystem")
 {
@@ -17,7 +18,7 @@ BallSort::BallSort() : Subsystem("ExampleSubsystem")
 	blue_value = 0;
 
 	solenoid = new Relay(0);
-	solenoid->Set(Relay::Value::kOff);
+	solenoid->Set(Relay::Value::kForward);
 	color_sensor = new I2C(frc::I2C::Port::kOnboard, 0x39);
 	color_sensor->Write(COMMAND_REGISTER_BIT | ENABLE_REGISTER, 0b00000011);
 	color_sensor->Write(COMMAND_REGISTER_BIT | ATIME_REGISTER, 0xFF);
@@ -42,16 +43,25 @@ void BallSort::UpdateSensor()
 	red_value = data[0];
 	green_value = data[2];
 	blue_value = data[4];
+	std::cout << "RED: " << (short int)red_value << "  BLUE: " << (short int)blue_value << std::endl;
 }
 
 bool BallSort::IsRed()
 {
-	return red_value > 12 && red_value <= 255 && blue_value < 20;
+	return ((int)red_value >= 5 && (int)red_value <= 255 && (int)blue_value < 10);
 }
 
 bool BallSort::IsBlue()
 {
-	return blue_value > 12 && blue_value <= 255 && red_value < 20;
+	if(((int)red_value == 2 && (int)blue_value == 2) || ((int)red_value == 3 && (int)blue_value == 3))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	//return (blue_value >= 3 && blue_value <= 255 && red_value < 4);
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

@@ -1,10 +1,12 @@
-#ifndef CubeConveyorCMD_H
-#define CubeConveyorCMD_H
+#pragma once
+
 #include "WPILib.h"
 #include "../CommandBase.h"
 
-class CubeConveyorCMD : public CommandBase {
+class CubeConveyorCMD : public CommandBase
+{
 private:
+bool a = false;
 public:
 	CubeConveyorCMD();
 	void Initialize();
@@ -13,5 +15,3 @@ public:
 	void End();
 	void Interrupted();
 };
-
-#endif  // CubeConveyorCMD_H

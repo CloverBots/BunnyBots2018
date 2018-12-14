@@ -1,9 +1,9 @@
 #include "CubeConveyorCMD.h"
+#include <iostream>
 
-CubeConveyorCMD::CubeConveyorCMD(){
+CubeConveyorCMD::CubeConveyorCMD()
+{
 	Requires(CommandBase::CubeConveyorSubsystem.get());
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
 }
 
 // Called just before this Command runs the first time
@@ -16,7 +16,16 @@ void CubeConveyorCMD::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void CubeConveyorCMD::Execute()
 {
-	CommandBase::CubeConveyorSubsystem->SetServo(CommandBase::oi->GetAxis(1, Axis::RightTrigger) * 360);
+	if(CommandBase::oi->GetButton(1, Buttons::Start))
+	{
+		CommandBase::CubeConveyorSubsystem->SetSoldenoid(DoubleSolenoid::Value::kForward);
+	}
+	else
+	{
+		CommandBase::CubeConveyorSubsystem->SetSoldenoid(DoubleSolenoid::Value::kReverse);
+	}
+
+	/*
 	switch(CommandBase::oi->GetDPad(1))
 	{
 	case(0):
@@ -32,25 +41,67 @@ void CubeConveyorCMD::Execute()
 		CommandBase::oi->ball_threshold = 2;
 		break;
 	}
-	if(CommandBase::CubeConveyorSubsystem->GetFrontSwitch())
+	*/
+
+	if(CommandBase::oi->GetButton(1, Buttons::X))
 	{
-		if(CommandBase::oi->in_cube_ball_count < CommandBase::oi->ball_threshold)
+		CommandBase::CubeConveyorSubsystem->SetHopper(.5);
+	}
+	else
+	{
+		CommandBase::CubeConveyorSubsystem->SetHopper(0);
+	}
+	if (CommandBase::CubeConveyorSubsystem->GetSwitch())
+	{
+		if (!a)
 		{
-			CommandBase::CubeConveyorSubsystem->SetEnabled(true);
-			CommandBase::CubeConveyorSubsystem->SetSetPoint(CommandBase::CubeConveyorSubsystem->GetSetPoint() + 5461);
+			CommandBase::oi->in_cube_ball_count++;
+		}
+		a = true;
+	}
+	else
+	{
+		a = false;
+	}
+	SmartDashboard::PutNumber("IN CUBE", CommandBase::oi->in_cube_ball_count);
+	if(CommandBase::oi->GetAxis(1, Axis::RightTrigger) > .01)
+	{
+		if(!CommandBase::CubeConveyorSubsystem->GetFrontSwitch())
+		{
+			CommandBase::CubeConveyorSubsystem->SetFront(1);
 		}
 		else
 		{
-			CommandBase::CubeConveyorSubsystem->SetEnabled(false);
-			if(!CommandBase::CubeConveyorSubsystem->GetBackSwitch())
-			{
-				CommandBase::CubeConveyorSubsystem->SetFront(1);
-			}
+			CommandBase::CubeConveyorSubsystem->SetFront(0);
 		}
 	}
-	if(CommandBase::oi->GetButton(1, Buttons::Y) && CommandBase::CubeConveyorSubsystem->GetBackSwitch())
+	else
 	{
-		CommandBase::CubeConveyorSubsystem->SetBack(1);
+		if(false)//CommandBase::oi->in_cube_ball_count < CommandBase::oi->ball_threshold)
+		{
+			CommandBase::CubeConveyorSubsystem->SetFront(0);
+		}
+		else
+		{
+			if(!CommandBase::CubeConveyorSubsystem->GetBackSwitch() && CommandBase::CubeConveyorSubsystem->GetFrontSwitch())
+			{
+				CommandBase::CubeConveyorSubsystem->SetFront(1);
+				CommandBase::CubeConveyorSubsystem->SetBack(.45);
+			}
+			else
+			{
+				if(CommandBase::oi->GetButton(1, Buttons::B))
+				{
+					CommandBase::CubeConveyorSubsystem->SetBack(.5);
+					CommandBase::CubeConveyorSubsystem->SetFront(1);
+				}
+				else
+				{
+					CommandBase::CubeConveyorSubsystem->SetBack(0);
+					CommandBase::CubeConveyorSubsystem->SetFront(0);
+				}
+			}
+		}
 	}
 }
 
@@ -61,13 +112,15 @@ bool CubeConveyorCMD::IsFinished()
 }
 
 // Called once after isFinished returns true
-void CubeConveyorCMD::End() {
+void CubeConveyorCMD::End()
+{
 	CommandBase::CubeConveyorSubsystem->SetFront(0);
 	CommandBase::CubeConveyorSubsystem->SetBack(0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void CubeConveyorCMD::Interrupted() {
+void CubeConveyorCMD::Interrupted()
+{
 
 }

@@ -25,6 +25,7 @@ class CommandBase: public frc::Command {
 public:
 	CommandBase(const std::string& name);
 	CommandBase() = default;
+	static void Init();
 	// Create a single static instance of all of your subsystems
 	static std::unique_ptr<OI> oi;
 	static std::unique_ptr<DriveSub> driveSubsystem;
@@ -34,5 +35,4 @@ public:
 	static std::unique_ptr<CubePickUp> CubePickUpSubsystem;
 	static std::unique_ptr<BallSort> BallSortSubsystem;
 };
-
 #endif  // COMMAND_BASE_H

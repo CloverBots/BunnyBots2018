@@ -1,6 +1,8 @@
 #include "BallPickUpCMD.h"
+#include <iostream>
 
-BallPickUpCMD::BallPickUpCMD(){
+BallPickUpCMD::BallPickUpCMD()
+{
 	Requires(CommandBase::BallPickUpSubsystem.get());
 
 	// Use Requires() here to declare subsystem dependencies
@@ -8,32 +10,45 @@ BallPickUpCMD::BallPickUpCMD(){
 }
 
 // Called just before this Command runs the first time
-void BallPickUpCMD::Initialize() {
-	CommandBase::BallPickUpSubsystem->SetSpeed(0);
-
+void BallPickUpCMD::Initialize()
+{
+	//CommandBase::BallPickUpSubsystem->SetSpeed(0);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void BallPickUpCMD::Execute()
 {
-	if(CommandBase::oi->GetButton(1, Buttons::B))
+	if(CommandBase::oi->GetAxis(1, Axis::RightTrigger) > .01)
 	{
-		CommandBase::BallPickUpSubsystem->SetSpeed(1);
+		std::cout << "?" << std::endl;
+		CommandBase::BallPickUpSubsystem->SetSpeed(-1);
+	}
+	else if(CommandBase::oi->GetAxis(1, Axis::LeftTrigger) > .1)
+	{
+		CommandBase::BallPickUpSubsystem->SetSpeed(-.5);
+	}
+	else
+	{
+		CommandBase::BallPickUpSubsystem->SetSpeed(0);
+
 	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool BallPickUpCMD::IsFinished() {
-	return true;
+bool BallPickUpCMD::IsFinished()
+{
+	return false;
 }
 
 // Called once after isFinished returns true
-void BallPickUpCMD::End() {
+void BallPickUpCMD::End()
+{
 	CommandBase::BallPickUpSubsystem->SetSpeed(0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void BallPickUpCMD::Interrupted() {
+void BallPickUpCMD::Interrupted()
+{
 
 }

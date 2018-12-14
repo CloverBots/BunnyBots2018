@@ -42,7 +42,8 @@ public:
 	int start_time = 0;
 	int end_time = 0;
 
-	int ball_threshold = 6;
+	int ball_threshold = 1;
+
 
 	Joystick* pDriveStick;
 	Joystick* pOperatorStick;
@@ -72,7 +73,7 @@ public:
 	double GetAxis(int controller, Axis axis);
 	bool GetButton(int controller, Buttons button);
 	int GetDPad(int controller);
-	void SetTeam(DriverStation::Alliance);
+	void SetTeam(std::string team);
 	DriverStation::Alliance GetTeam();
 	OI();
 };

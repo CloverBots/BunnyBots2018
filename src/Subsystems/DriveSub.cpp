@@ -24,7 +24,7 @@ DriveSub::DriveSub() : Subsystem("DriveSub")
 	Front_Right_Motor->SetInverted(true);
 	Middle_Right_Motor->SetInverted(true);
 	Back_Right_Motor->SetInverted(true);
-	Gear_Box = new DoubleSolenoid(1, 2);
+	Gear_Box = new DoubleSolenoid(1, 0);
 
 	DriveSource = new Enc2PIDSource(Middle_Right_Motor, Middle_Left_Motor);
 	DriveOutput = new PIDValOutput();
@@ -81,12 +81,13 @@ double DriveSub::GetGyroAngle()
 
 void DriveSub::PIDDrive()
 {
-	Front_Left_Motor->Set(GetDriveOutput() - GetRotateOutput());
-	Front_Right_Motor->Set(GetDriveOutput() + GetRotateOutput());
-	Middle_Left_Motor->Set(GetDriveOutput() - GetRotateOutput());
-	Middle_Right_Motor->Set(GetDriveOutput() + GetRotateOutput());
-	Back_Left_Motor->Set(GetDriveOutput() - GetRotateOutput());
-	Back_Right_Motor->Set(GetDriveOutput() + GetRotateOutput());
+
+	Front_Left_Motor->Set(-GetDriveOutput() - GetRotateOutput());
+	Front_Right_Motor->Set(-GetDriveOutput() + GetRotateOutput());
+	Middle_Left_Motor->Set(-GetDriveOutput() - GetRotateOutput());
+	Middle_Right_Motor->Set(-GetDriveOutput() + GetRotateOutput());
+	Back_Left_Motor->Set(-GetDriveOutput() - GetRotateOutput());
+	Back_Right_Motor->Set(-GetDriveOutput() + GetRotateOutput());
 }
 
 void DriveSub::SetDrivePIDEnabled(bool enabled)

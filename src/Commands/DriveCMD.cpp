@@ -1,9 +1,11 @@
 #include "DriveCMD.h"
 #include "WPILib.h"
 #include "../CommandBase.h"
+#include <iostream>
 #include "DriveCMD.h"
 
-DriveCMD::DriveCMD() {
+DriveCMD::DriveCMD()
+{
 	Requires(CommandBase::driveSubsystem.get());
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -12,16 +14,17 @@ DriveCMD::DriveCMD() {
 // Called just before this Command runs the first time
 void DriveCMD::Initialize()
 {
-	CommandBase::driveSubsystem->Drive(0,00);
+	CommandBase::driveSubsystem->Drive(0, 0);
 	CommandBase::driveSubsystem->Shift(DoubleSolenoid::Value::kForward);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveCMD::Execute()
 {
-		CommandBase::driveSubsystem->Drive(CommandBase::oi->GetAxis(0, Axis::RightUpDown), CommandBase::oi->GetAxis(0, Axis::LeftLeftRight));
+		CommandBase::driveSubsystem->Drive(CommandBase::oi->GetAxis(0, Axis::LeftUpDown), CommandBase::oi->GetAxis(0, Axis::RightLeftRight));
 		if(CommandBase::oi->GetButton(0, Buttons::A))
 		{
+			std::cout << "A" << std::endl;
 			CommandBase::driveSubsystem->Shift(DoubleSolenoid::Value::kForward);
 		}
 		if(CommandBase::oi->GetButton(0, Buttons::B))

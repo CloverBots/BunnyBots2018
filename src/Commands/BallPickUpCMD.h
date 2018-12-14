@@ -1,10 +1,10 @@
-#ifndef BallPickUpCMD_H
-#define BallPickUpCMD_H
-#include "WPILib.h"
+#pragma once
 
+#include "WPILib.h"
 #include "../CommandBase.h"
 
-class BallPickUpCMD : public CommandBase {
+class BallPickUpCMD : public CommandBase
+{
 private:
 public:
 	BallPickUpCMD();
@@ -14,5 +14,3 @@ public:
 	void End();
 	void Interrupted();
 };
-
-#endif  // BallPickUpCMD_H

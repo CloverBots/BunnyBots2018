@@ -10,26 +10,25 @@ CubeConveyor::CubeConveyor() : Subsystem("CubeConveyorSubsystem")
 	Cube_Conveyor_Back_1 = new WPI_TalonSRX(RobotMap::Cube_Conveyor_Right_1);
 	Cube_Conveyor_Front_2 = new WPI_TalonSRX(RobotMap::Cube_Conveyor_Left_2);
 	Cube_Conveyor_Back_2 = new WPI_TalonSRX(RobotMap::Cube_Conveyor_Right_2);
-	Ball_Hopper_Motor = new WPI_TalonSRX(RobotMap::Ball_Hopper_Motor);
+	Ball_Hopper_Motor = new WPI_VictorSPX(RobotMap::Ball_Hopper_Motor);
 	Ball_Hopper_Motor->ConfigSelectedFeedbackSensor(phoenix::motorcontrol::FeedbackDevice::QuadEncoder, 0, 0);
 	Ball_Hopper_Motor->GetSensorCollection().SetQuadraturePosition(0, 10);
 	Ball_Hopper_Source = new EncPIDSource(Ball_Hopper_Motor);
 	Ball_Hopper_Controller = new PIDController(P, I, D, Ball_Hopper_Source, Ball_Hopper_Motor);
-	Ball_Hopper_Servo = new Servo(1);
+	Ball_Hopper_Solenoid = new DoubleSolenoid(4, 5);
 	Front_Switch = new DigitalInput(0);
 	Back_Switch = new DigitalInput(1);
+	HopperSwitch = new DigitalInput(6);
 }
 
 void CubeConveyor::InitDefaultCommand()
 {
-	// Set the default command for a subsystem here.
-	// SetDefaultCommand(new MySpecialCommand());
 	SetDefaultCommand(new CubeConveyorCMD());
 }
 
-void CubeConveyor::SetServo(double angle)
+void CubeConveyor::SetSoldenoid(DoubleSolenoid::Value value)
 {
-	Ball_Hopper_Servo->SetAngle(angle);
+	Ball_Hopper_Solenoid->Set(value);
 }
 
 void CubeConveyor::SetHopper(double speed)
@@ -44,6 +43,11 @@ void CubeConveyor::SetEnabled(bool enabled)
 void CubeConveyor::SetSetPoint(double setpoint)
 {
 	Ball_Hopper_Controller->SetSetpoint(setpoint);
+}
+
+bool CubeConveyor::GetSwitch()
+{
+	return !HopperSwitch->Get();
 }
 
 double CubeConveyor::GetSetPoint()
@@ -70,13 +74,10 @@ void CubeConveyor::SetBack(double speed)
 
 bool CubeConveyor::GetBackSwitch()
 {
-	return Back_Switch->Get();
+	return !Back_Switch->Get();
 }
 
 bool CubeConveyor::GetFrontSwitch()
 {
-	return Front_Switch->Get();
+	return !Front_Switch->Get();
 }
-
-// Put methods for controlling this subsystem
-// here. Call these from Commands.

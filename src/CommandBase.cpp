@@ -1,7 +1,7 @@
 #include "CommandBase.h"
 
 #include <Commands/Scheduler.h>
-
+#include <iostream>
 #include "Subsystems/DriveSub.h"
 
 // Initialize a single static instance of all of your subsystems. The following
@@ -17,11 +17,16 @@ std::unique_ptr<BallSort> CommandBase::BallSortSubsystem;
 
 CommandBase::CommandBase(const std::string &name) :
 		frc::Command(name) {
-	oi.reset(new OI);
+}
+
+void CommandBase::Init()
+{
 	driveSubsystem.reset(new DriveSub);
 	BallConveyorSubsystem.reset(new BallConveyor);
-	BallPickUpSubsystem.reset(new BallPickUp);
 	CubeConveyorSubsystem.reset(new CubeConveyor);
 	CubePickUpSubsystem.reset(new CubePickUp);
+	BallPickUpSubsystem.reset(new BallPickUp);
 	BallSortSubsystem.reset(new BallSort);
+	oi.reset(new OI);
 }
+

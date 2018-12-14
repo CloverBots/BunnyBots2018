@@ -1,5 +1,5 @@
-#ifndef BallConveyor_H
-#define BallConveyor_H
+#pragma once
+
 #include <WPILib.h>
 #include <Commands/Subsystem.h>
 #include <ctre/Phoenix.h>
@@ -15,5 +15,3 @@ public:
 	void SetSpeed(double speed);
 	void InitDefaultCommand();
 };
-
-#endif  // BallConveyor_H

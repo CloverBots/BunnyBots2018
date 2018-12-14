@@ -1,5 +1,5 @@
-#ifndef DriveSub_H
-#define DriveSub_H
+#pragma once
+
 #include <WPILib.h>
 #include <Commands/Subsystem.h>
 #include <ctre/Phoenix.h>
@@ -9,8 +9,6 @@
 class DriveSub : public Subsystem
 {
 private:
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
 	float DistanceRight = 0;
 	float DistanceLeft = 0;
 	float DistanceOldRight = 0;
@@ -20,7 +18,7 @@ private:
 	const float m_EncScaler = 2.8444;
 	float m_DriveP = 0.015f;
 	float m_DriveI = 0.0f;
-	float m_DriveD = 0.1f;
+	float m_DriveD = 0.095f;
 	float m_RotateP = 0.02f;
 	float m_RotateI = 0.0f;
 	float m_RotateD = 0.01f;
@@ -61,5 +59,3 @@ public:
 	void Calibrate();
 	void InitDefaultCommand();
 };
-
-#endif  // DriveSub_H

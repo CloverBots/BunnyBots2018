@@ -1,10 +1,10 @@
-#ifndef DriveCMD_H
-#define DriveCMD_H
+#pragma once
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class DriveCMD : public CommandBase {
+class DriveCMD : public CommandBase
+{
 public:
 	DriveCMD();
 	void Initialize();
@@ -13,5 +13,3 @@ public:
 	void End();
 	void Interrupted();
 };
-
-#endif  // DriveCMD_H

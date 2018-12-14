@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "OI.h"
+#include <iostream>
 #include <WPILib.h>
 #include <Commands/BallConveyorCMD.h>
 #include <Commands/BallPickUpCMD.h>
@@ -19,16 +20,16 @@ OI::OI()
 	end_time = 0;
 	pDriveStick = new Joystick(0);
 	pOperatorStick = new Joystick(1);
-	DriverAButton = new JoystickButton(pOperatorStick, 1);
-	DriverBButton = new JoystickButton(pOperatorStick, 2);
-	DriverXButton = new JoystickButton(pOperatorStick, 3);
-	DriverYButton = new JoystickButton(pOperatorStick, 4);
-	DriverBackButton = new JoystickButton(pOperatorStick, 7);
-	DriverStartButton = new JoystickButton(pOperatorStick, 8);
-	DriverLBumperButton = new JoystickButton(pOperatorStick, 5);
-	DriverRBumperButton = new JoystickButton(pOperatorStick, 6);
-	DriverLJoyDownButton = new JoystickButton(pOperatorStick, 9);
-	DriverRJoyDownButton = new JoystickButton(pOperatorStick, 10);
+	DriverAButton = new JoystickButton(pDriveStick, 1);
+	DriverBButton = new JoystickButton(pDriveStick, 2);
+	DriverXButton = new JoystickButton(pDriveStick, 3);
+	DriverYButton = new JoystickButton(pDriveStick, 4);
+	DriverBackButton = new JoystickButton(pDriveStick, 7);
+	DriverStartButton = new JoystickButton(pDriveStick, 8);
+	DriverLBumperButton = new JoystickButton(pDriveStick, 5);
+	DriverRBumperButton = new JoystickButton(pDriveStick, 6);
+	DriverLJoyDownButton = new JoystickButton(pDriveStick, 9);
+	DriverRJoyDownButton = new JoystickButton(pDriveStick, 10);
 	OperatorAButton = new JoystickButton(pOperatorStick, 1);
 	OperatorBButton = new JoystickButton(pOperatorStick, 2);
 	OperatorXButton = new JoystickButton(pOperatorStick, 3);
@@ -43,9 +44,20 @@ OI::OI()
 	// Process operator interface input here.
 }
 
-void OI::SetTeam(DriverStation::Alliance team)
+void OI::SetTeam(std::string team)
 {
-	this->team = team;
+	if(team == "Red")
+	{
+		this->team = DriverStation::Alliance::kRed;
+	}
+	else if(team == "Blue")
+	{
+		this->team = DriverStation::Alliance::kBlue;
+	}
+	else
+	{
+		this->team = DriverStation::Alliance::kInvalid;
+	}
 }
 
 DriverStation::Alliance OI::GetTeam()

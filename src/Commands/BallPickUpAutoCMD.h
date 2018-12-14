@@ -7,23 +7,19 @@
 
 #pragma once
 
-class RobotMap
+#include <Commands/Command.h>
+#include "../CommandBase.h"
+
+class BallPickUpAutoCMD : public frc::Command
 {
+private:
+	double speed;
 public:
-	const static unsigned int
-		Front_Left_Motor = 9,
-		Front_Right_Motor = 11,
-		Middle_Left_Motor = 13,
-		Middle_Right_Motor = 12,
-		Back_Left_Motor = 10,
-		Back_Right_Motor = 14,
-		Cube_Pick_Up_Left = 8,
-		Cube_Pick_Up_Right = 7,
-		Cube_Conveyor_Left_1 = 1,
-		Cube_Conveyor_Right_1 = 2,
-		Cube_Conveyor_Left_2 = 0,
-		Cube_Conveyor_Right_2 = 3,
-		Ball_Pick_Up_Motor = 6,
-		Ball_Conveyor_Motor = 5,
-		Ball_Hopper_Motor = 4;
+	BallPickUpAutoCMD(double speed);
+	void Initialize() override;
+	void Execute() override;
+	bool IsFinished() override;
+	void End() override;
+	void Interrupted() override;
 };
+

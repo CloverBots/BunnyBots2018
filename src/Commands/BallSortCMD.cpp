@@ -4,8 +4,8 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 #include "BallSortCMD.h"
+#include <iostream>
 #include "../CommandBase.h"
 
 BallSortCMD::BallSortCMD()
@@ -29,55 +29,53 @@ void BallSortCMD::Execute()
 	{
 		if(CommandBase::BallSortSubsystem->IsRed())
 		{
-			if(CommandBase::oi->start_time == 0)
-			{
-				CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kForward);
-				CommandBase::oi->start_time = clock();
-				CommandBase::oi->total_ball_count++;
-				CommandBase::oi->in_cube_ball_count++;
-			}
-			else
-			{
-				CommandBase::oi->end_time = clock();
-				if((CommandBase::oi->end_time - CommandBase::oi->start_time)/CLOCKS_PER_SEC >= .25)
-				{
-					CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kReverse);
-				}
-			}
+			std::cout << "on" << std::endl;
+			CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kReverse);
+			CommandBase::oi->start_time = clock();
+			CommandBase::oi->total_ball_count++;
 		}
 		else
 		{
-			CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kReverse);
+			CommandBase::oi->end_time = clock();
+			if(CommandBase::oi->start_time != 0)
+			{
+				std::cout << (double)(CommandBase::oi->start_time - CommandBase::oi->end_time)/CLOCKS_PER_SEC << std::endl;
+			}
+			if((double)(CommandBase::oi->start_time - CommandBase::oi->end_time)/CLOCKS_PER_SEC >= -.5)
+			{
+				std::cout << "off" << std::endl;
+				CommandBase::oi->start_time = 0;
+				CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kForward);
+			}
 		}
 	}
 	else if(CommandBase::oi->GetTeam() == DriverStation::Alliance::kBlue)
 	{
+
 		if(CommandBase::BallSortSubsystem->IsBlue())
 		{
-			if(CommandBase::oi->start_time == 0)
-			{
-				CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kForward);
-				CommandBase::oi->start_time = clock();
-				CommandBase::oi->in_cube_ball_count++;
-			}
-			else
-			{
-				CommandBase::oi->end_time = clock();
-				if((CommandBase::oi->end_time - CommandBase::oi->start_time)/CLOCKS_PER_SEC >= .25)
-				{
-					CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kReverse);
-					CommandBase::oi->start_time = 0;
-				}
-			}
+			std::cout << "on" << std::endl;
+			CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kReverse);
+			CommandBase::oi->start_time = clock();
+			CommandBase::oi->total_ball_count++;
 		}
 		else
 		{
-			CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kReverse);
+			CommandBase::oi->end_time = clock();
+			if(CommandBase::oi->start_time != 0)
+			{
+				std::cout << (double)(CommandBase::oi->start_time - CommandBase::oi->end_time)/CLOCKS_PER_SEC << std::endl;
+			}
+			if((double)(CommandBase::oi->start_time - CommandBase::oi->end_time)/CLOCKS_PER_SEC >= -.5)
+			{
+				std::cout << "off" << std::endl;
+				CommandBase::oi->start_time = 0;
+				CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kForward);
+			}
 		}
 	}
 	else
 	{
-		CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kReverse);
 	}
 }
 

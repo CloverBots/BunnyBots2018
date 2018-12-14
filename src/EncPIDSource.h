@@ -1,10 +1,3 @@
-/*
- * EncPIDSource.h
- *
- *  Created on: Feb 16, 2018
- *      Author: conso
- */
-
 #pragma once
 
 #include "WPILib.h"
@@ -14,9 +7,9 @@ class EncPIDSource : public PIDSource
 {
 private:
 
-	WPI_TalonSRX* m_pTalon;
+	WPI_VictorSPX* m_pTalon;
 public:
-	EncPIDSource(WPI_TalonSRX* pTalon);
+	EncPIDSource(WPI_VictorSPX* pTalon);
 	void Reset();
 	virtual ~EncPIDSource();
 	virtual double PIDGet();

@@ -18,11 +18,11 @@ double Enc2PIDSource::PIDGet()
 //	DistanceOldRight = DistanceRight;
 //	DistanceLeft += (m_pTalonLeft->GetSelectedSensorPosition(0) / 54.3702 / 21.6 - DistanceOldLeft);
 //	DistanceOldLeft = DistanceLeft;
-	DistanceRight += (m_pTalonRight->GetSelectedSensorPosition(0) / 54.3702 / (21.6 * 1.388) - DistanceOldRight);
+	DistanceRight += (m_pTalonRight->GetSelectedSensorPosition(0) / 54.3702 / (21.6) - DistanceOldRight);
 	DistanceOldRight = DistanceRight;
-	DistanceLeft += (m_pTalonLeft->GetSelectedSensorPosition(0) / 54.3702 / (21.6 * 1.388) - DistanceOldLeft);
+	DistanceLeft += (m_pTalonLeft->GetSelectedSensorPosition(0) / 54.3702 / (21.6) - DistanceOldLeft);
 	DistanceOldLeft = DistanceLeft;
-	return (DistanceRight + DistanceLeft) / 2;
+	return -((DistanceRight + DistanceLeft) / 2);
 }
 
 void Enc2PIDSource::Reset()

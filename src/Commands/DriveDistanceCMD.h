@@ -2,10 +2,12 @@
 
 #include <Commands/Command.h>
 
-class BallSortCMD : public frc::Command
+class DriveDistanceCMD : public frc::Command
 {
+private:
+	double distance;
 public:
-	BallSortCMD();
+	DriveDistanceCMD(double distance);
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;

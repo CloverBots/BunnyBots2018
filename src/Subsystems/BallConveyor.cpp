@@ -7,6 +7,7 @@
 BallConveyor::BallConveyor() : Subsystem("BallConveyorSubsystem")
 {
 	Ball_Conveyor_Motor = new WPI_TalonSRX(RobotMap::Ball_Conveyor_Motor);
+	Ball_Conveyor_Motor->ConfigOpenloopRamp(.25, 10);
 }
 
 void BallConveyor::InitDefaultCommand()

@@ -2,7 +2,7 @@
 #include <ctre/Phoenix.h>
 #include <iostream>
 
-EncPIDSource::EncPIDSource(WPI_TalonSRX* pTalon) : m_pTalon(pTalon)
+EncPIDSource::EncPIDSource(WPI_VictorSPX* pTalon) : m_pTalon(pTalon)
 {
 
 }

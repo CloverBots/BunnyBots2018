@@ -2,6 +2,7 @@
 #include "../RobotMap.h"
 #include "WPILib.h"
 #include <ctre/Phoenix.h>
+#include "Commands/BallPickUpCMD.h"
 
 BallPickUp::BallPickUp() : Subsystem("BallPickUpSubsystem")
 {
@@ -10,6 +11,7 @@ BallPickUp::BallPickUp() : Subsystem("BallPickUpSubsystem")
 
 void BallPickUp::InitDefaultCommand()
 {
+	SetDefaultCommand(new BallPickUpCMD());
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
 }

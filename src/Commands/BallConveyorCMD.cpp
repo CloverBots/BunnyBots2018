@@ -1,29 +1,29 @@
 #include "BallConveyorCMD.h"
 
-BallConveyorCMD::BallConveyorCMD(){
+BallConveyorCMD::BallConveyorCMD()
+{
+	start_time = 0;
 	Requires(CommandBase::BallConveyorSubsystem.get());
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 }
 
 // Called just before this Command runs the first time
-void BallConveyorCMD::Initialize() {
+void BallConveyorCMD::Initialize()
+{
 	CommandBase::BallConveyorSubsystem->SetSpeed(0);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void BallConveyorCMD::Execute() {
-	if(CommandBase::oi->GetButton(1, Buttons::B))
+void BallConveyorCMD::Execute()
+{
+	if(CommandBase::oi->GetAxis(1, Axis::LeftTrigger))
 	{
-		if(start_time == 0)
-		{
-			start_time = clock();
-		}
+		CommandBase::BallConveyorSubsystem->SetSpeed(.45);
 	}
-	end_time = clock();
-	if(!(CommandBase::oi->end_time - CommandBase::oi->start_time)/CLOCKS_PER_SEC >= 5)
+	else if(CommandBase::oi->GetAxis(1, Axis::RightTrigger))
 	{
-		CommandBase::BallConveyorSubsystem->SetSpeed(1);
+		CommandBase::BallConveyorSubsystem->SetSpeed(.45);
 	}
 	else
 	{
@@ -32,17 +32,20 @@ void BallConveyorCMD::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool BallConveyorCMD::IsFinished() {
+bool BallConveyorCMD::IsFinished()
+{
 	return false;
 }
 
 // Called once after isFinished returns true
-void BallConveyorCMD::End() {
+void BallConveyorCMD::End()
+{
 	CommandBase::BallConveyorSubsystem->SetSpeed(0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void BallConveyorCMD::Interrupted() {
+void BallConveyorCMD::Interrupted()
+{
 
 }
