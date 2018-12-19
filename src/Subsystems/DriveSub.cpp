@@ -3,6 +3,7 @@
 #include <WPILib.h>
 #include "DriveSub.h"
 #include "Commands/DriveCMD.h"
+#include <iostream>
 
 DriveSub::DriveSub() : Subsystem("DriveSub")
 {
@@ -31,6 +32,7 @@ DriveSub::DriveSub() : Subsystem("DriveSub")
 	RotateOutput = new PIDValOutput();
 	DrivePID = new PIDController(m_DriveP, m_DriveI, m_DriveD, DriveSource, DriveOutput);
 	DriveRotatePID = new PIDController(m_RotateP, m_RotateI, m_RotateD, m_gyro, RotateOutput);
+	DriveRotatePID->SetAbsoluteTolerance(0);
 }
 
 void DriveSub::InitDefaultCommand()
@@ -41,6 +43,7 @@ void DriveSub::InitDefaultCommand()
 
 void DriveSub::Drive(double speed, double turn)
 {
+	SmartDashboard::PutNumber("Gyro", m_gyro->PIDGet());
 	Front_Left_Motor->Set(speed - turn);
 	Front_Right_Motor->Set(speed + turn);
 	Middle_Left_Motor->Set(speed - turn);
@@ -79,15 +82,26 @@ double DriveSub::GetGyroAngle()
 	return m_gyro->GetAngle();
 }
 
-void DriveSub::PIDDrive()
+void DriveSub::PIDDrive(double speed)
 {
+	speed = -speed;
+	SmartDashboard::PutNumber("Gyro", m_gyro->PIDGet());
+	if(m_gyro->PIDGet() > max)
+	{
+		max = m_gyro->PIDGet();
+	}
+	if(m_gyro->PIDGet() < min)
+	{
+		min = m_gyro->PIDGet();
+	}
 
-	Front_Left_Motor->Set(-GetDriveOutput() - GetRotateOutput());
-	Front_Right_Motor->Set(-GetDriveOutput() + GetRotateOutput());
-	Middle_Left_Motor->Set(-GetDriveOutput() - GetRotateOutput());
-	Middle_Right_Motor->Set(-GetDriveOutput() + GetRotateOutput());
-	Back_Left_Motor->Set(-GetDriveOutput() - GetRotateOutput());
-	Back_Right_Motor->Set(-GetDriveOutput() + GetRotateOutput());
+	//std::cout << "MAX: " << max << "   MIN: " << min << std::endl;
+	Front_Left_Motor->Set(speed - GetRotateOutput());
+	Front_Right_Motor->Set(speed + GetRotateOutput());
+	Middle_Left_Motor->Set(speed - GetRotateOutput());
+	Middle_Right_Motor->Set(speed + GetRotateOutput());
+	Back_Left_Motor->Set(speed - GetRotateOutput());
+	Back_Right_Motor->Set(speed + GetRotateOutput());
 }
 
 void DriveSub::SetDrivePIDEnabled(bool enabled)

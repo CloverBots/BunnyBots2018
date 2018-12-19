@@ -75,32 +75,39 @@ void CubeConveyorCMD::Execute()
 			CommandBase::CubeConveyorSubsystem->SetFront(0);
 		}
 	}
-	else
+	else if(CommandBase::oi->GetButton(1, Buttons::Y))
 	{
-		if(false)//CommandBase::oi->in_cube_ball_count < CommandBase::oi->ball_threshold)
+		if(!CommandBase::CubeConveyorSubsystem->GetBackSwitch() && CommandBase::CubeConveyorSubsystem->GetFrontSwitch())
 		{
-			CommandBase::CubeConveyorSubsystem->SetFront(0);
+			CommandBase::CubeConveyorSubsystem->SetFront(1);
+			CommandBase::CubeConveyorSubsystem->SetBack(.45);
 		}
 		else
 		{
-			if(!CommandBase::CubeConveyorSubsystem->GetBackSwitch() && CommandBase::CubeConveyorSubsystem->GetFrontSwitch())
+			if(CommandBase::oi->GetButton(1, Buttons::B))
 			{
+				CommandBase::CubeConveyorSubsystem->SetBack(.5);
 				CommandBase::CubeConveyorSubsystem->SetFront(1);
-				CommandBase::CubeConveyorSubsystem->SetBack(.45);
 			}
 			else
 			{
-				if(CommandBase::oi->GetButton(1, Buttons::B))
-				{
-					CommandBase::CubeConveyorSubsystem->SetBack(.5);
-					CommandBase::CubeConveyorSubsystem->SetFront(1);
-				}
-				else
-				{
-					CommandBase::CubeConveyorSubsystem->SetBack(0);
-					CommandBase::CubeConveyorSubsystem->SetFront(0);
-				}
+				CommandBase::CubeConveyorSubsystem->SetBack(0);
+				CommandBase::CubeConveyorSubsystem->SetFront(0);
 			}
+		}
+		CommandBase::oi->in_cube_ball_count = 0;
+	}
+	else
+	{
+		if(CommandBase::oi->GetButton(1, Buttons::B))
+		{
+			CommandBase::CubeConveyorSubsystem->SetBack(.5);
+			CommandBase::CubeConveyorSubsystem->SetFront(1);
+		}
+		else
+		{
+			CommandBase::CubeConveyorSubsystem->SetBack(0);
+			CommandBase::CubeConveyorSubsystem->SetFront(0);
 		}
 	}
 }

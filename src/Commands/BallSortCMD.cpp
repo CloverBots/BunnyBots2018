@@ -31,20 +31,22 @@ void BallSortCMD::Execute()
 		{
 			std::cout << "on" << std::endl;
 			CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kReverse);
-			CommandBase::oi->start_time = clock();
+			CommandBase::oi->start_time = std::chrono::high_resolution_clock::now();
+			CommandBase::oi->start = 1;
 			CommandBase::oi->total_ball_count++;
 		}
 		else
 		{
-			CommandBase::oi->end_time = clock();
-			if(CommandBase::oi->start_time != 0)
+			CommandBase::oi->end_time = std::chrono::high_resolution_clock::now();
+			CommandBase::oi->end = 1;
+			if(CommandBase::oi->start != 0)
 			{
-				std::cout << (double)(CommandBase::oi->start_time - CommandBase::oi->end_time)/CLOCKS_PER_SEC << std::endl;
+				//std::cout << (double)(CommandBase::oi->start_time - CommandBase::oi->end_time)/CLOCKS_PER_SEC << std::endl;
 			}
-			if((double)(CommandBase::oi->start_time - CommandBase::oi->end_time)/CLOCKS_PER_SEC >= -.5)
+			if(std::chrono::duration_cast<std::chrono::seconds>(CommandBase::oi->end_time - CommandBase::oi->start_time).count() >= -.5)
 			{
 				std::cout << "off" << std::endl;
-				CommandBase::oi->start_time = 0;
+				CommandBase::oi->start = 0;
 				CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kForward);
 			}
 		}
@@ -56,20 +58,22 @@ void BallSortCMD::Execute()
 		{
 			std::cout << "on" << std::endl;
 			CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kReverse);
-			CommandBase::oi->start_time = clock();
+			CommandBase::oi->start_time = std::chrono::high_resolution_clock::now();
+			CommandBase::oi->start = 1;
 			CommandBase::oi->total_ball_count++;
 		}
 		else
 		{
-			CommandBase::oi->end_time = clock();
-			if(CommandBase::oi->start_time != 0)
+			CommandBase::oi->end_time = std::chrono::high_resolution_clock::now();
+			CommandBase::oi->end = 1;
+			if(CommandBase::oi->start != 0)
 			{
-				std::cout << (double)(CommandBase::oi->start_time - CommandBase::oi->end_time)/CLOCKS_PER_SEC << std::endl;
+				//std::cout << (double)(CommandBase::oi->start_time - CommandBase::oi->end_time)/CLOCKS_PER_SEC << std::endl;
 			}
-			if((double)(CommandBase::oi->start_time - CommandBase::oi->end_time)/CLOCKS_PER_SEC >= -.5)
+			if(std::chrono::duration_cast<std::chrono::seconds>(CommandBase::oi->end_time - CommandBase::oi->start_time).count() >= -.5)
 			{
 				std::cout << "off" << std::endl;
-				CommandBase::oi->start_time = 0;
+				CommandBase::oi->start = 0;
 				CommandBase::BallSortSubsystem->SetSolenoid(Relay::Value::kForward);
 			}
 		}

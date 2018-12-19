@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 #include <WPILib.h>
 #pragma once
+#include <chrono>
 
 enum Axis
 {
@@ -39,11 +40,17 @@ public:
 	int total_ball_count = 0;
 	int in_cube_ball_count = 0;
 
-	int start_time = 0;
-	int end_time = 0;
+	std::chrono::system_clock::time_point start_time;
+	std::chrono::system_clock::time_point end_time;
+	int start = 0;
+	int end = 0;
 
 	int ball_threshold = 1;
 
+	bool reset = false;
+	bool in_zone_1 = false;
+	bool throw_cube = false;
+	bool throw_latch = false;
 
 	Joystick* pDriveStick;
 	Joystick* pOperatorStick;

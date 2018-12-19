@@ -6,6 +6,7 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <TimedRobot.h>
 #include "CommandBase.h"
+#include "Commands/CubeAutoCMDGroup.h"
 
 class Robot : public frc::TimedRobot
 {
@@ -15,6 +16,8 @@ public:
 	{
 		CommandBase::Init();
 		m_chooser.AddDefault("DriveForward", "DriveForward");
+		m_chooser.AddObject("CubeAuto", "CubeAuto");
+
 		frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
 		m_team_chooser.AddDefault("Red", "Red");
@@ -42,14 +45,14 @@ public:
 	{
 		c->Start();
 		CommandBase::oi->SetTeam(m_team_chooser.GetSelected());
-		std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
+		std::string autoSelected = m_chooser.GetSelected();
 		if (autoSelected == "DriveForward")
 		{
-			m_autonomousCommand = new DriveDistanceCMD(24);
+			m_autonomousCommand = new DriveDistanceCMD(.27);
 		}
-		else
+		else if (autoSelected == "CubeAuto")
 		{
-			m_autonomousCommand = new DriveDistanceCMD(24);
+			m_autonomousCommand = new CubeAutoCMDGroup();
 		}
 
 		if (m_autonomousCommand != nullptr)

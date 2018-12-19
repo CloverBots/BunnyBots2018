@@ -21,7 +21,7 @@ void DriveCMD::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DriveCMD::Execute()
 {
-		CommandBase::driveSubsystem->Drive(CommandBase::oi->GetAxis(0, Axis::LeftUpDown), CommandBase::oi->GetAxis(0, Axis::RightLeftRight));
+		CommandBase::driveSubsystem->Drive(CommandBase::oi->GetAxis(0, Axis::LeftUpDown), CommandBase::oi->GetAxis(0, Axis::RightLeftRight) / 1.5);
 		if(CommandBase::oi->GetButton(0, Buttons::A))
 		{
 			std::cout << "A" << std::endl;

@@ -5,13 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "CubeAutoCMDGroup.h"
+#pragma once
 
-CubeAutoCMDGroup::CubeAutoCMDGroup()
-{
-	AddParallel(new CubePickUpAutoCMD(false, -.8, .35));
-	AddParallel(new CubeConveyorAutoCMD());
-	AddParallel(new BallSortAutoCMD());
-	AddParallel(new BallConveyorAutoCMD(.45));
-	AddSequential(new DriveDistanceCMD(.27));
-}
+#include <Commands/Command.h>
+
+class BallSortAutoCMD : public frc::Command {
+public:
+	BallSortAutoCMD();
+	void Initialize() override;
+	void Execute() override;
+	bool IsFinished() override;
+	void End() override;
+	void Interrupted() override;
+};
+

@@ -43,25 +43,17 @@ void BallSort::UpdateSensor()
 	red_value = data[0];
 	green_value = data[2];
 	blue_value = data[4];
-	std::cout << "RED: " << (short int)red_value << "  BLUE: " << (short int)blue_value << std::endl;
+	//std::cout << "RED: " << (int)red_value << "  BLUE: " << (int)blue_value << std::endl;
 }
 
 bool BallSort::IsRed()
 {
-	return ((int)red_value >= 5 && (int)red_value <= 255 && (int)blue_value < 10);
+	return ((int)red_value >= 12 && (int)red_value <= 255 && (int)blue_value < 12);
 }
 
 bool BallSort::IsBlue()
 {
-	if(((int)red_value == 2 && (int)blue_value == 2) || ((int)red_value == 3 && (int)blue_value == 3))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-	//return (blue_value >= 3 && blue_value <= 255 && red_value < 4);
+	return ((int)blue_value >= 12 && (int)blue_value <= 255 && (int)red_value < 12);
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

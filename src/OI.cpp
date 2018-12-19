@@ -16,8 +16,8 @@
 OI::OI()
 {
 	team = DriverStation::Alliance::kInvalid;
-	start_time = 0;
-	end_time = 0;
+	start = 0;
+	end = 0;
 	pDriveStick = new Joystick(0);
 	pOperatorStick = new Joystick(1);
 	DriverAButton = new JoystickButton(pDriveStick, 1);

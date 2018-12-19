@@ -21,8 +21,9 @@ private:
 	float m_DriveD = 0.095f;
 	float m_RotateP = 0.02f;
 	float m_RotateI = 0.0f;
-	float m_RotateD = 0.01f;
-
+	float m_RotateD = 0.04f;
+	double min = 0;
+	double max = 0;
 
 	WPI_TalonSRX* Front_Left_Motor;
 	WPI_TalonSRX* Front_Right_Motor;
@@ -48,7 +49,7 @@ public:
 	void ResetDrive();
 	double GetDistance();
 	double GetGyroAngle();
-	void PIDDrive();
+	void PIDDrive(double speed);
 	void SetDrivePIDEnabled(bool enabled);
 	void SetDriveRotatePIDEnabled(bool enabled);
 	void SetDriveRotate(bool enabled, double setpoint);

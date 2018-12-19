@@ -21,7 +21,7 @@ void BallPickUpCMD::Execute()
 	if(CommandBase::oi->GetAxis(1, Axis::RightTrigger) > .01)
 	{
 		std::cout << "?" << std::endl;
-		CommandBase::BallPickUpSubsystem->SetSpeed(-1);
+		CommandBase::BallPickUpSubsystem->SetSpeed(-.75);
 	}
 	else if(CommandBase::oi->GetAxis(1, Axis::LeftTrigger) > .1)
 	{

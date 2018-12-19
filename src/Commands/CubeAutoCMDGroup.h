@@ -8,6 +8,11 @@
 #pragma once
 
 #include <Commands/CommandGroup.h>
+#include "DriveDistanceCMD.h"
+#include "CubeConveyorAutoCMD.h"
+#include "CubePickUpAutoCMD.h"
+#include "BallSortAutoCMD.h"
+#include "BallConveyorAutoCMD.h"
 
 class CubeAutoCMDGroup : public frc::CommandGroup {
 public:

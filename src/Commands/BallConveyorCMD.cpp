@@ -25,6 +25,10 @@ void BallConveyorCMD::Execute()
 	{
 		CommandBase::BallConveyorSubsystem->SetSpeed(.45);
 	}
+	else if(CommandBase::oi->GetButton(1, Buttons::Back))
+	{
+		CommandBase::BallConveyorSubsystem->SetSpeed(-.45);
+	}
 	else
 	{
 		CommandBase::BallConveyorSubsystem->SetSpeed(0);

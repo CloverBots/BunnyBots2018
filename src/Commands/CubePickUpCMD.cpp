@@ -17,8 +17,11 @@ void CubePickUpCMD::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void CubePickUpCMD::Execute()
 {
+	if(CommandBase::CubePickUpSubsystem->GetSensor())
+	{
+		std::cout << "HIT" << std::endl;
+	}
 	CommandBase::CubePickUpSubsystem->SetSpeed(CommandBase::oi->GetAxis(1, Axis::RightTrigger));
-
 	if(CommandBase::oi->GetButton(1, Buttons::A))
 	{
 		CommandBase::CubePickUpSubsystem->Grab(DoubleSolenoid::Value::kForward);

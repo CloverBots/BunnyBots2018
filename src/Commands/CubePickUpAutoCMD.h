@@ -9,6 +9,7 @@
 
 #include <Commands/Command.h>
 #include "../CommandBase.h"
+#include <chrono>
 
 class CubePickUpAutoCMD : public frc::Command
 {
@@ -16,6 +17,12 @@ private:
 	bool grab;
 	double ball;
 	double cube;
+	std::chrono::system_clock::time_point start_time;
+	int start;
+	int end;
+	std::chrono::system_clock::time_point end_time;
+	bool latch = false;
+	bool latch2 = false;
 public:
 	CubePickUpAutoCMD(bool grab, double ball, double cube);
 	void Initialize() override;
